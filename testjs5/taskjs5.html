@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			.displayarea {
+				background-color: #ddd;
+			}
+			
+			ul {
+				display: flex;
+				align-items: flex-end;
+			}
+			
+			li {
+				list-style: none;
+				display: inline-block;
+				font-size: 30px;
+				color: white;
+				padding: 2px;
+				margin: 5px;
+				background-color: orangered;
+				width: 25px;
+			}
+		</style>
+		<script type="text/javascript">
+			//左侧入
+			function addleft() {
+				var parnode = document.getElementsByClassName("displayarea")[0];
+				var val = document.getElementById("valueinput").value;
+				if(!isNaN(val) && val != "" && val >= 10 && val <= 100 && parnode.children.length < 60) {
+					var li = document.createElement("li");
+					parnode.insertBefore(li, parnode.children[0]);
+					li.value = val;
+					//设置li高度3
+					//li.setAttribute("style","height: 100px;");
+					li.style.height = val + "px";
+				} else {
+					alert("请输入10-100的数字");
+				}
+			}
+			//右侧入
+			function addright() {
+				var parnode = document.getElementsByClassName("displayarea")[0];
+				var val = document.getElementById("valueinput").value;
+				if(!isNaN(val) && val != "" && val >= 10 && val <= 100 && parnode.children.length < 60) {
+					var li = document.createElement("li");
+					parnode.appendChild(li);
+					li.value = val;
+					//设置li高度3
+					//li.setAttribute("style","height: 100px;");
+					li.style.height = val + "px";
+				} else {
+					alert("请输入10-100的数字");
+				}
+			}
+			//左侧出
+			function delleft() {
+				var parnode = document.getElementsByClassName("displayarea")[0];
+				if(parnode.children.length > 0) {
+					//alert(parnode.children[0].innerHTML);
+					parnode.removeChild(parnode.children[0]);
+				}
+
+			}
+			//右侧出
+			function delright() {
+				var parnode = document.getElementsByClassName("displayarea")[0];
+				if(parnode.children.length > 0) {
+					//alert(parnode.children[parnode.children.length-1].innerHTML);
+					parnode.removeChild(parnode.children[parnode.children.length - 1]);
+				}
+			}
+			//点击添加绑定事件
+			document.onclick = function() {
+				var newlilist = document.getElementsByTagName("li");
+				for(var i = 0; i < newlilist.length; i++) {
+					newlilist[i].addEventListener("click", delchose);
+				}
+			}
+			//点击元素删除
+			function delchose() {
+				this.remove();
+			}
+
+			//排序
+			var sortchange = true;
+			function lisort() {
+				var newlilist = document.getElementsByTagName("li");
+				var livalue = [];
+				for(var i = 0; i < newlilist.length; i++) {
+					livalue[i] = newlilist[i].value;
+				}
+				if(sortchange == true) {
+					livalue.sort(function(a, b) {
+						return a - b;
+					});
+					sortchange = false;
+				} else if(sortchange == false) {
+					livalue.sort(function(a, b) {
+						return b - a;
+					});
+					sortchange = true;
+				}
+				for(var i = 0; i < newlilist.length; i++) {
+					newlilist[i].style.height = livalue[i] + "px";
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<input type="text" name="" id="valueinput" value="0" />
+		<input type="button" name="" id="" value="左侧入" onclick="addleft()" />
+		<input type="button" name="" id="" value="右侧入" onclick="addright()" />
+		<input type="button" name="" id="" value="左侧出" onclick="delleft()" />
+		<input type="button" name="" id="" value="右侧出" onclick="delright()" /><br />
+		<input type="button" name="" id="" value="排序" onclick="lisort()" />
+		<ul class="displayarea" id="displayarea">
+			<!--<li>123</li>-->
+		</ul>
+	</body>
+
+</html>
