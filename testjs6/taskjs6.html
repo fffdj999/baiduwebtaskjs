@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			.displayarea {
+				background-color: #ddd;
+			}
+			
+			li {
+				list-style: none;
+				display: inline-block;
+				font-size: 30px;
+				color: white;
+				padding: 2px;
+				margin: 5px;
+				background-color: orangered;
+			}
+		</style>
+		<script type="text/javascript">
+			//左侧入
+			function addleft() {
+				var parnode = document.getElementsByClassName("displayarea")[0];
+				var val = document.getElementById("valueinput").value;
+				if(val != "") {
+					var contentsplit = val.split(/["\n",，、 ]/);
+					for(var i = 0; i < contentsplit.length; i++) {
+						var li = document.createElement("li");
+						parnode.appendChild(li);
+						li.innerHTML = contentsplit[i];
+					} 
+
+				} else {
+					alert("请输入内容");
+				}
+			}
+			//右侧入
+			//			function addright(){
+			//				var parnode = document.getElementsByClassName("displayarea")[0];
+			//				var val = document.getElementById("valueinput").value;
+			//				if (val!="") {
+			//					var li = document.createElement("li");
+			//					parnode.appendChild(li);
+			//					li.innerHTML=val;
+			//				}else{
+			//					alert("请输入内容");
+			//				}
+			//			}
+			//左侧出
+			function delleft() {
+				var parnode = document.getElementsByClassName("displayarea")[0];
+				if(parnode.children.length > 0) {
+					alert(parnode.children[0].innerHTML);
+					parnode.removeChild(parnode.children[0]);
+				}
+
+			}
+			//右侧出
+			function delright() {
+				var parnode = document.getElementsByClassName("displayarea")[0];
+				if(parnode.children.length > 0) {
+					alert(parnode.children[parnode.children.length - 1].innerHTML);
+					parnode.removeChild(parnode.children[parnode.children.length - 1]);
+				}
+			}
+			//点击添加绑定事件
+			document.onclick = function() {
+				var newlilist = document.getElementsByTagName("li");
+				for(var i = 0; i < newlilist.length; i++) {
+					newlilist[i].addEventListener("click", delchose);
+				}
+			}
+			//点击元素删除
+			function delchose() {
+				this.remove();
+			}
+			//查询
+			function lisearch(){
+				var litext = document.getElementById("lisearchtext").value;
+				var newlilist = document.getElementsByTagName("li");
+				for (var i=0;i<newlilist.length;i++) {
+					if (newlilist[i].innerHTML.indexOf(litext)>-1) {
+						newlilist[i].style.color="greenyellow";
+					}
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<textarea name="" rows="" cols="" id="valueinput"></textarea>
+		<input type="button" name="" id="" value="插入" onclick="addleft()" />
+		<!--<input type="button" name="" id="" value="右侧入" onclick="addright()" />-->
+		<input type="button" name="" id="" value="左侧出" onclick="delleft()" />
+		<input type="button" name="" id="" value="右侧出" onclick="delright()" /><br />
+		<input type="button" name="" id="" value="查询" onclick="lisearch()" />
+		<input type="text" name="lisearchtext" id="lisearchtext" value="0" />
+		<ul class="displayarea" id="displayarea">
+
+		</ul>
+	</body>
+
+</html>
