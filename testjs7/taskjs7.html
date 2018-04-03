@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			body {
+				text-align: center;
+			}
+			
+			.divbody {
+				display: inline-block;
+			}
+			
+			div {
+				border: 1px solid black;
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: space-around;
+				align-items: center;
+			}
+			
+			.box1 {
+				width: 800px;
+				height: 400px;
+			}
+			
+			.box1 * {
+				width: 40%;
+				height: 80%;
+			}
+		</style>
+
+		<script type="text/javascript">
+			//前序遍历
+			//将节点按遍历顺序放入数组
+			var arr = new Array;
+
+			function qianxu(boxnode) {
+				arr.push(boxnode);
+				if(boxnode.children.length > 0) {
+					qianxu(boxnode.children[0]);
+					qianxu(boxnode.children[1]);
+				}
+			}
+			//传入第一个节点，给当前节点上色
+			function qianxucolor(boxnode) {
+				qianxu(boxnode);
+				qianxubianse();
+			}
+			//用递归的方式间隔一秒上色
+			var num = 0;
+
+			function qianxubianse() {
+				for(var i = 0; i < 15; i++) {
+					arr[i].style.backgroundColor = "white";
+				}
+				arr[num].style.backgroundColor = "red";
+				num++;
+				if(num < 15) {
+					setTimeout(qianxubianse, 500);
+				}
+			}
+
+			//中序遍历
+			//将节点按遍历顺序放入数组
+			var arr2 = new Array;
+
+			function zhongxu(boxnode) {
+				if(boxnode.children.length > 0) {
+					zhongxu(boxnode.children[0]);
+				}
+				arr2.push(boxnode);
+				if(boxnode.children.length > 0) {
+					zhongxu(boxnode.children[1]);
+				}
+			}
+			//传入第一个节点，给当前节点上色
+			function zhongxucolor(boxnode) {
+				zhongxu(boxnode);
+				zhongxubianse();
+			}
+			//用递归的方式间隔一秒上色
+			var num2 = 0;
+
+			function zhongxubianse() {
+				for(var i = 0; i < 15; i++) {
+					arr2[i].style.backgroundColor = "white";
+				}
+				arr2[num2].style.backgroundColor = "red";
+				num2++;
+				if(num2 < 15) {
+					setTimeout(zhongxubianse, 500);
+				}
+			}
+
+			//后序遍历
+			//将节点按遍历顺序放入数组
+			var arr3 = new Array;
+
+			function houxu(boxnode) {
+				if(boxnode.children.length > 0) {
+					houxu(boxnode.children[0]);
+					houxu(boxnode.children[1]);
+				}
+				arr3.push(boxnode);
+			}
+			//传入第一个节点，给当前节点上色
+			function houxucolor(boxnode) {
+				houxu(boxnode);
+				houxubianse();
+			}
+			//用递归的方式间隔一秒上色
+			var num3 = 0;
+
+			function houxubianse() {
+				for(var i = 0; i < 15; i++) {
+					arr3[i].style.backgroundColor = "white";
+				}
+				arr3[num3].style.backgroundColor = "red";
+				num3++;
+				if(num3 < 15) {
+					setTimeout(houxubianse, 500);
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<div class="divbody">
+			<div class="box1" id="box1">
+				<div class="" id="box2">
+					<div class="" id="box3">
+						<div class="" id="box4">
+
+						</div>
+						<div class="" id="box4">
+
+						</div>
+					</div>
+					<div class="" id="box3">
+						<div class="" id="box4">
+
+						</div>
+						<div class="" id="box4">
+
+						</div>
+					</div>
+				</div>
+
+				<div class="" id="box2">
+					<div class="" id="box3">
+						<div class="" id="box4">
+
+						</div>
+						<div class="" id="box4">
+
+						</div>
+					</div>
+					<div class="" id="box3">
+						<div class="" id="box4">
+
+						</div>
+						<div class="" id="box4">
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br />
+		<input type="button" name="" id="" value="前序遍历" onclick="qianxucolor(boxnode)" />
+		<input type="button" name="" id="" value="中序遍历" onclick="zhongxucolor(boxnode)" />
+		<input type="button" name="" id="" value="后序遍历" onclick="houxucolor(boxnode)" />
+
+		<script type="text/javascript">
+			var boxnode = document.getElementById("box1");
+			var boxnode2 = document.getElementById("box2");
+		</script>
+	</body>
+
+</html>
