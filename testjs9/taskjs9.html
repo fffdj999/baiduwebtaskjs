@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			body {
+				text-align: center;
+			}
+			
+			.divbody {
+				display: inline-block;
+			}
+			
+			div {
+				margin: 10px;
+				border: 1px solid black;
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: space-around;
+				align-items: center;
+				position: relative;
+			}
+			
+			p {
+				display: inline-block;
+				position: absolute;
+				top: -10px;
+				left: 0;
+			}
+			/*弹性盒布局如果父元素需要被自动撑开的，就不需要加宽高度*/
+			.box1 {
+				/*width: 1200px;*/
+				/*height: 400px;*/
+			}
+			
+			.box2-1 {
+				/*width: 45%;*/
+				/*height: 80%;*/
+			}
+			
+			.box2-2 {
+				/*width: 5%;*/
+				/*height: 80%;*/
+			}
+			
+			.box3-1 {
+				/*width: 45%;*/
+				/*height: 80%;*/
+			}
+			
+			.box3-2 {
+				/*width: 15%;*/
+				/*height: 80%;*/
+			}
+			
+			.box3-3 {
+				/*width: 25%;*/
+				/*height: 80%;*/
+			}
+			
+			.box4-1 {
+				width: 50px;
+				height: 180px;
+			}
+			
+			.box4-2 {
+				width: 60px;
+				height: 180px;
+			}
+			
+			.box4-3 {
+				width: 70px;
+				height: 180px;
+			}
+			
+			.box5 {
+				width: 30px;
+				height: 150px;
+			}
+		</style>
+
+		<script type="text/javascript">
+			//前序遍历
+			//将节点按遍历顺序放入数组
+			var arr = new Array;
+
+			function qianxu(boxnode) {
+				if(boxnode.nodeName != "P") {
+					arr.push(boxnode);
+				}
+				if(boxnode.children.length - 1 > 0) {
+					for(var j = 1; j < boxnode.children.length; j++) {
+						qianxu(boxnode.children[j]);
+					}
+				}
+			}
+			//传入第一个节点，给当前节点上色
+			function qianxucolor(boxnode) {
+				qianxu(boxnode);
+				cesto = 1;
+				qianxubianse();
+			}
+			//用递归的方式间隔一秒上色
+			var num = 0;
+			var cesto = 1; //中断控制变量
+
+			function qianxubianse() {
+				if(cesto == 1 && num != stopi + 1) {
+					for(var i = 0; i < arr.length; i++) {
+						console.log(arr[i].id);
+						arr[i].style.backgroundColor = "white";
+					}
+					arr[num].style.backgroundColor = "red";
+					num++;
+					if(num < arr.length) {
+						setTimeout(qianxubianse, 500);
+					}
+				}
+			}
+
+			//			function cancelergodic() {
+			//				cesto = 2;
+			//			}
+			var stopi = -2;
+
+			function boxsearch() {
+				qianxucolor(boxnode);
+				var plist = document.getElementsByTagName("p");
+				var textvalue = document.getElementById("txtinput");
+				for(var j = 0; j < plist.length; j++) {
+					if(plist[j].innerHTML.indexOf(textvalue.value) > -1) {
+						stopi = j;
+					}
+				}
+			}
+			//中序遍历
+			//将节点按遍历顺序放入数组
+			//			var arr2 = new Array;
+			//
+			//			function zhongxu(boxnode) {
+			//				if(boxnode.children.length > 0) {
+			//					zhongxu(boxnode.children[0]);
+			//				}
+			//				arr2.push(boxnode);
+			//				if(boxnode.children.length > 0) {
+			//					zhongxu(boxnode.children[1]);
+			//				}
+			//			}
+			//			//传入第一个节点，给当前节点上色
+			//			function zhongxucolor(boxnode) {
+			//				zhongxu(boxnode);
+			//				zhongxubianse();
+			//			}
+			//			//用递归的方式间隔一秒上色
+			//			var num2 = 0;
+			//
+			//			function zhongxubianse() {
+			//				for(var i = 0; i < 15; i++) {
+			//					arr2[i].style.backgroundColor = "white";
+			//				}
+			//				arr2[num2].style.backgroundColor = "red";
+			//				num2++;
+			//				if(num2 < 15) {
+			//					setTimeout(zhongxubianse, 500);
+			//				}
+			//			}
+			//
+			//			//后序遍历
+			//			//将节点按遍历顺序放入数组
+			//			var arr3 = new Array;
+			//
+			//			function houxu(boxnode) {
+			//				if(boxnode.children.length > 0) {
+			//					houxu(boxnode.children[0]);
+			//					houxu(boxnode.children[1]);
+			//				}
+			//				arr3.push(boxnode);
+			//			}
+			//			//传入第一个节点，给当前节点上色
+			//			function houxucolor(boxnode) {
+			//				houxu(boxnode);
+			//				houxubianse();
+			//			}
+			//			//用递归的方式间隔一秒上色
+			//			var num3 = 0;
+			//
+			//			function houxubianse() {
+			//				for(var i = 0; i < 15; i++) {
+			//					arr3[i].style.backgroundColor = "white";
+			//				}
+			//				arr3[num3].style.backgroundColor = "red";
+			//				num3++;
+			//				if(num3 < 15) {
+			//					setTimeout(houxubianse, 500);
+			//				}
+			//			}
+		</script>
+	</head>
+
+	<body>
+		<div class="divbody">
+			<div class="box1" id="box1">
+				<p>Sugar</p>
+				<div class="box2-1" id="box2">
+					<p>Cat</p>
+					<div class="box3-1" id="box3">
+						<p>Apple</p>
+						<div class="box4-1" id="box4">
+							<p>Pear</p>
+						</div>
+						<div class="box4-1" id="box4">
+							<p>Pig</p>
+						</div>
+						<div class="box4-1" id="box4">
+							<p>Cola</p>
+						</div>
+						<div class="box4-1" id="box4">
+							<p>Soccer</p>
+						</div>
+					</div>
+					<div class="box3-2" id="box3">
+						<p>Phone</p>
+					</div>
+					<div class="box3-3" id="box3">
+						<p></p>
+						<div class="box4-2" id="box4">
+							<p>Book</p>
+						</div>
+						<div class="box4-2" id="box4">
+							<p>School</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="box2-1" id="box2">
+					<p>Note</p>
+					<div class="box3-1" id="box3">
+						<p>Human</p>
+						<div class="box4-3" id="box4">
+							<p>Code</p>
+						</div>
+						<div class="box4-3" id="box4">
+							<p>Operate</p>
+						</div>
+						<div class="box4-3" id="box4">
+							<p>Man</p>
+						</div>
+					</div>
+					<div class="box3-1" id="box3">
+						<p>Program</p>
+						<div class="box4-2" id="box4">
+							<p>Bement</p>
+							<div class="box5" id="box5">
+								<p>Cat</p>
+							</div>
+						</div>
+						<div class="box4-3" id="box4">
+							<p>Glass</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="box2-2" id="box2">
+					Fish
+				</div>
+			</div>
+		</div>
+		<br />
+		<input type="button" name="" id="" value="遍历" onclick="qianxucolor(boxnode)" />
+		<!--<input type="button" name="" id="" value="中断" onclick="cancelergodic()" />-->
+		<input type="button" name="" id="" value="查询" onclick="boxsearch()" />
+		<input type="button" name="" id="" value="删除" onclick="boxselectdel()"/>
+		<input type="button" name="" id="" value="添加" onclick="boxappend()"/>
+		<input type="text" name="" id="txtappend" value="null" /><br />
+		<input type="text" name="" id="txtinput" value="0" />
+
+		<script type="text/javascript">
+			var boxnode = document.getElementById("box1");
+			
+			//选中变色
+			var boxnodes = document.getElementsByTagName("div");
+			(function() {
+				for(var i = 1; i < boxnodes.length; i++) {
+					boxnodes[i].addEventListener("click", colorchange);
+				}
+			})();
+			
+			var boxdel;  //节点对象赋值给变量
+			function colorchange() {
+				boxdel=this;
+				console.log(boxdel.children[0].innerHTML);
+				//先去色，再上色
+				for(var i = 1; i < boxnodes.length; i++) {
+					boxnodes[i].style.backgroundColor = "white";
+				}
+				this.style.backgroundColor = "red";
+				event.stopPropagation();
+			}
+			//删除变量代表的节点
+			function boxselectdel(){
+				boxdel.remove();
+			}
+			
+			function boxappend(){
+				var txtappend=document.getElementById("txtappend").innerHTML;
+				var newnodediv=document.createElement("div");
+				var newnodep=document.createElement("p");
+				newnodediv.appendChild(newnodep);
+				boxdel.parentElement.appendChild(newnodediv);
+				newnodep.innerHTML=txtappend;
+				newnodediv.style.width=window.getComputedStyle(boxdel).width;
+				newnodediv.style.height=window.getComputedStyle(boxdel).height;
+			}
+		</script>
+	</body>
+
+</html>
